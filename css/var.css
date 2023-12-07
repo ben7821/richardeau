@@ -1,0 +1,12 @@
+:root{
+font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+font-size: medium;
+--height: 1vh ;
+--width: 1vw ;
+--border: black solid 3px;
+text-decoration: none;
+>h1{
+    text-decoration: none;
+    text-align: center;
+ }
+}
