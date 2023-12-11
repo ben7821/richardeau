@@ -6,7 +6,7 @@ if (isset($_POST['username'])) {
   $username = htmlspecialchars($_POST['username']);
 
 
-
+  $idRoom = 20;
 
   // Admin login ----------------
   if (isset($_POST['admin'])) {
@@ -35,21 +35,21 @@ if (isset($_POST['username'])) {
   } else {
 
     // select pour vérifier une room disponible
-    $sql = "SELECT ID FROM room WHERE VALID = ? AND CREATED = ? ORDER BY CREATED ASC";
+    //$sql = "SELECT ID FROM room WHERE VALID = ? AND CREATED = ? ORDER BY CREATED ASC";
 
-    $db = Connexion::login();
-    $resRoom = $db->prepare($sql);
-    $resRoom->execute(array(1, "2023-12-07"));
+    //$db = Connexion::login();
+    //$resRoom = $db->prepare($sql);
+    //$resRoom->execute(array(1, "2023-12-07"));
 
-    $resuRoom = $resRoom->fetch(PDO::FETCH_ASSOC);
+    //$resuRoom = $resRoom->fetch(PDO::FETCH_ASSOC);
 
     // si oui, on ajoute le joueur
-    if ($resRoom->rowCount() > 0) {
+    //if ($resRoom->rowCount() > 0) {
 
       // select pour vérifier si le joueur existe
       $sql = "SELECT * FROM player WHERE LIB = ? AND IDROOM = ?";
       $res = $db->prepare($sql);
-      $res->execute(array($username, $resuRoom['ID']));
+      $res->execute(array($username, $idRoom));
 
       // si le joueur existe
       if ($res->rowCount() > 0) {
@@ -60,22 +60,22 @@ if (isset($_POST['username'])) {
       $sql = "INSERT INTO player (LIB, SCORE, IDROOM) VALUES (?, ?, ?)";
 
       $resInsert = $db->prepare($sql);
-      $resInsert->execute(array($username, 0, $resuRoom['ID']));
+      $resInsert->execute(array($username, 0, $idRoom));
 
       // on le connecte avec les variables de session
       session_start();
       $_SESSION['player'] = $username;
-      $_SESSION['room'] = $resuRoom['ID'];
+      $_SESSION['room'] = $idRoom;
 
-    } else {
+    //} else {
       // si non, on le redirige vers la d'accueil
-      header("Location: index.php?error=no_room");
-    }
+    //  header("Location: index.php?error=no_room");
+    //}
 
     $db = Connexion::logout();
 
     // si tout est ok, on le redirige vers la room
-    header("Location: room.php?room=" . $resuRoom["ID"]);
+    header("Location: room.php?room=" . $idRoom);
     die();
   }
 }
@@ -94,11 +94,22 @@ if (isset($_POST['username'])) {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
-<body class="index">
-
-  <h1 class="indextitle">Administration</h1>
-
+<body class="index area-2">
+<ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    
   <form action="login.php" method="post" id="form">
+    <h1 class="indextitle">Administration</h1>
     <input type="text" name="username" placeholder="Username" required>
     <input type="password" name="password" placeholder="Password" required>
 
@@ -107,6 +118,7 @@ if (isset($_POST['username'])) {
   </form>
 
   <div class="ending"></div>
+  <a href="index.php" class="adminbtn">USER</a>
   <script src="js/anim.js"></script>
 </body>
 

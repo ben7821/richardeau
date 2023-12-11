@@ -30,7 +30,19 @@ $db = Connexion::logout();
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="index">
+<body class="index area-3">
+<ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
 
   <h1 class="indextitle">Admin</h1>
 

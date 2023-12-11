@@ -15,3 +15,4 @@ function animateEnding() {
     $("#form").unbind("submit").submit();
   }, 2000);
 }
+

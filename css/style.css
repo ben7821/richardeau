@@ -1,16 +1,34 @@
 @import url("var.css");
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
 /* @import url("timer.css"); */
 
 * {
+
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* mettre le fond en vert */
 .index {
-    background-color: aquamarine;
+    display: flex;
+    align-items: center;
+    background: rgb(46, 119, 74);
+    background: radial-gradient(circle, rgba(46, 119, 74, 1) 29%, rgba(59, 165, 100, 1) 57%, rgba(59, 165, 100, 1) 79%, rgba(34, 185, 167, 1) 100%);
+    overflow:hidden;
+    height: 100%;
+    font-family: 'Exo', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    text-transform: uppercase;
 }
 
+
+
+
+
+
+/* mettre le h1 en title*/
 .indextitle {
     font-size: 3rem;
     text-align: center;
@@ -26,6 +44,7 @@
 }
 
 
+/* mettre le form au center et blanc */
 #form {
     display: flex;
     flex-direction: column;
@@ -41,8 +60,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    border-radius: 35px;
 }
 
+
+/* changer les inputs... */
 #form input,
 #form button,
 #form select,
@@ -53,6 +75,7 @@
     border: none;
     font-size: 1.5rem;
     transition: background-color 0.3s ease;
+    border-radius: 20px;
 }
 
 #form input:focus {
@@ -65,6 +88,8 @@
     background-color: #000;
     color: #fff;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 20px;
 }
 
 #form p {
@@ -86,7 +111,9 @@
     border: #000 1px solid;
 }
 
-.adminbtn {
+/* le btn admin en bas a droite */
+.adminbtn,
+.indexbtn {
     position: fixed;
     bottom: 2vh;
     right: 2vw;
@@ -99,12 +126,20 @@
     color: #000;
     background-color: #fff;
     transition: background-color 0.3s ease;
+    border-radius: 20px;
 }
 
-.adminbtn:hover {
-    background-color: #aaa;
+.adminbtn:hover,
+.indexbtn:hover {
+    background-color: #000;
+    color: #fff;
 }
 
+
+
+
+
+/* l'ecran de transition */
 .ending {
     position: absolute;
     top: 0;
@@ -124,6 +159,7 @@
     animation-fill-mode: forwards;
 }
 
+/* l'animation de fade in */
 @keyframes fadein {
     from {
         opacity: 0;
@@ -134,7 +170,7 @@
     }
 }
 
-
+/* alternative au #form */
 .adminpanel {
     width: 100vw;
     height: 75vh;
@@ -152,13 +188,14 @@
     border: 2px solid #ccc;
 }
 
+/* les btns du form */
 .actions {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: start;
     gap: 2vw;
-    padding: 2vw 2vh;
+    padding: 1vw 2vh;
     background-color: #eee;
 }
 
@@ -166,11 +203,12 @@
     background-color: #000;
     color: #fff;
     border: none;
-    padding: 1vh 2vw;
+    padding: 2vh 2vw;
     font-size: 1.5rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
     border: #000 1px solid;
+    border-radius: 30px;
 }
 
 .actions button:hover {
@@ -189,7 +227,7 @@
 }
 
 .room {
-    width: 100%;
+    width: 90%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
@@ -198,6 +236,14 @@
     padding: 2vw 2vh;
     background-color: #eee;
     border: 1px solid #ccc;
+}
+
+.room:first-child {
+    border-radius: 30px 30px 0 0;
+}
+
+.room:last-child {
+    border-radius: 0 0 30px 30px;
 }
 
 .room-valid {
@@ -211,27 +257,6 @@
 .room.selected {
     background-color: #000;
     color: #fff;
-}
-
-@media screen and (max-width: 768px) {
-    .adminpanel {
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        transform: translate(0, 0);
-    }
-
-    .actions {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2vh;
-    }
-
-    .actions button {
-        width: 60%;
-    }
 }
 
 /* LOADER ROOM */
@@ -283,10 +308,12 @@
     0% {
         left: -40%;
     }
+
     50% {
         left: 20%;
         width: 80%;
     }
+
     100% {
         left: 100%;
         width: 100%;
@@ -334,11 +361,229 @@
     border: 1px solid #000;
 }
 
-.scoreboard > h1 {
+.scoreboard .head {
     background-color: #fff;
     color: #000;
     border: 2px solid #000;
     width: 100%;
     text-align: center;
     padding: 3vh 0;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.scoreboard .startbtn {
+    position: absolute;
+    top: 50%;
+    right: 2vw;
+    transform: translate(0, -50%);
+    border: 1px solid #000;
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 0.5vh 1vw;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+    border-radius: 20px;
+}
+
+.scoreboard .startbtn:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+    #form {
+        width: 100%;
+        border-radius: 0;
+    }
+
+    .adminpanel {
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        transform: translate(0, 0);
+    }
+
+    .actions {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2vh;
+    }
+
+    .actions button {
+        width: 60%;
+    }
+
+    .scoreboard .head {
+        font-size: 1.5rem;
+        flex-direction: column;
+        gap: 2vh;
+    }
+
+    .scoreboard .startbtn {
+        position: relative;
+
+    }
+}
+
+
+
+
+.context {
+    width: 100%;
+    position: absolute;
+    top: 50vh;
+
+}
+
+.context h1 {
+    text-align: center;
+    color: #fff;
+    font-size: 50px;
+}
+
+
+.area {
+    background: #464ddb;
+    background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+    width: 100%;
+    height: 100vh;
+}
+
+.area-2 {
+    background: #d83232;
+    background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+    width: 100%;
+    height: 100vh;
+}
+
+.area-3 {
+    background: #8832d8;
+    background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+    width: 100%;
+    height: 100vh;
+}
+
+.circles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.circles li {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    animation: animate 25s linear infinite;
+    bottom: -150px;
+
+}
+
+.circles li:nth-child(1) {
+    left: 25%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+}
+
+
+.circles li:nth-child(2) {
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 2s;
+    animation-duration: 12s;
+}
+
+.circles li:nth-child(3) {
+    left: 70%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 4s;
+}
+
+.circles li:nth-child(4) {
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+}
+
+.circles li:nth-child(5) {
+    left: 65%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0s;
+}
+
+.circles li:nth-child(6) {
+    left: 75%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3s;
+}
+
+.circles li:nth-child(7) {
+    left: 35%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 7s;
+}
+
+.circles li:nth-child(8) {
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+}
+
+.circles li:nth-child(9) {
+    left: 20%;
+    width: 15px;
+    height: 15px;
+    animation-delay: 2s;
+    animation-duration: 35s;
+}
+
+.circles li:nth-child(10) {
+    left: 85%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+}
+
+
+
+@keyframes animate {
+
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+
+    100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+
 }
