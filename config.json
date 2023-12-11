@@ -1,6 +1,6 @@
 {
   "HOST": "localhost",
   "DBNAME": "richardeau",
-  "USER": "grandebrune",
+  "LOGIN": "grandebrune",
   "MDP": "extincteur"
 }

@@ -13,7 +13,8 @@ class Connexion
      */
     public static function login(): PDO
     {
-        $file = json_decode(file_get_contents("config.json"), true);
+        $dir = __DIR__ . "/../../config.json";
+        $file = json_decode(file_get_contents($dir), true);
         return new PDO("mysql:host=" . $file['HOST'] . ";dbname=" . $file['DBNAME'] . ";charset=utf8", $file['LOGIN'], $file['MDP']);
     }
 
@@ -35,8 +36,19 @@ class Connexion
  * @param string $passwd
  * @return string
  */
-function hashPassword($passwd)
+function hashPassword($passwd): string
 {
     return password_hash($passwd, PASSWORD_DEFAULT);
+}
+
+/**
+ * Permet de hasher un mot de passe en MD5
+ * 
+ * @param string $passwd
+ * @return string
+ */
+function hashMD5Password($passwd): string
+{
+    return md5($passwd);
 }
 ?>
