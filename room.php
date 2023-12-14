@@ -31,47 +31,89 @@ if (!isset($_SESSION['room']) && $_SESSION['room'] != $_GET['room']) {
       <h1 class="roomtitle">' . $_SESSION['player'] . '...</h1>
       <div class="loader-line"></div>
     </div>';
-    die();
-  }
-  ?>
-  <div class="scoreboard">
-    <div class="head">
-      <h1> Scoreboard </h1>
-      <button class="startbtn">Start</button>
-    </div>
-    <div class="scores">
+  } else {
+    ?>
+    <div class="scoreboard">
+      <div class="head">
+        <h1> Scoreboard </h1>
+        <button class="startbtn" id="start">Start</button>
+        <button class="startbtn startbtnleft" onclick="window.location.href = 'admin.php'">Retour</button>
+      </div>
+      <div class="scores">
 
+      </div>
     </div>
-  </div>
-
-  <div class="ending"></div>
-  
-  <?php if (isset($_SESSION['admin'])) { ?>
     <a href="logout.php" class="adminbtn">Logout</a>
-    <?php } ?>
-    <script src="js/anim.js"></script>
+  <?php } ?>
+  <div class="ending"></div>
 </body>
-<script src="js/room.js"></script>
+<script src="js/anim.js"></script>
+<?php if (isset($_SESSION['admin'])) { ?>
+  <script src="js/room.js"></script>
+<?php } ?>
 <script>
-  //   if (typeof (EventSource) !== "undefined") {
-  //     var source = new EventSource("php/getplayers.php?room=<?php //echo $_GET['room']; ?>");
-  //     source.onmessage = function (event) {
-  //         var player = JSON.parse(event.data);
-  //         //window.location.href = "game.php";
 
-  //         if (player.length == 0) {
-  //             $(".scoreboard .scores").html("Pas de joueurs...");
-  //             return;
-  //         }
+  if (typeof (EventSource) !== "undefined") {
+    <?php if (isset($_SESSION['admin'])) { ?>
+      var source = new EventSource("php/roomevent.php?room=<?php echo $_GET['room']; ?>");
+    <?php } else { ?>
+      var source = new EventSource("php/roomevent.php?room=<?php echo $_GET['room']; ?>&user=true");
+    <?php } ?>
+    source.onmessage = function (event) {
 
-  //         $(".scoreboard .scores").html("");
-  //         for (var i = 0; i < player.length; i++) {
-  //             $('.scoreboard .scores').append(getPlayerBody(i,player[i].LIB, player[i].SCORE));
-  //         }
-  //     };
-  // } else {
-  //     alert("Sorry, your browser does not support server-sent events...");
-  // }
+      <?php if (isset($_SESSION['admin'])) { ?>
+        var player = JSON.parse(event.data);
+
+
+        if (player.length == 0) {
+          $(".scoreboard .scores").html("Pas de joueurs...");
+          return;
+        }
+
+        $(".scoreboard .scores").html("");
+        for (var i = 0; i < player.length; i++) {
+
+          // check if player score changed, if not, don't play sound
+          if (playersScore[i] != undefined && playersScore[i].SCORE == player[i].SCORE) {
+            continue;
+          }
+
+          const scoreSound = new Audio('sfx/' + getRandomSFX());
+          scoreSound.play();
+
+          $('.scoreboard .scores').append(getPlayerBody(i, player[i].LIB, player[i].SCORE));
+        }
+
+        playersScore = player;
+
+      <?php } else { ?>
+        var player = event.data;
+        if (player === "startGame") {
+          window.location.href = "game.php?room=<?php echo $_GET['room']; ?>";
+        }
+      <?php } ?>
+    };
+  } else {
+    alert("Sorry, your browser does not support server-sent events...");
+  }
+
+  <?php if (isset($_SESSION['admin'])) { ?>
+
+    const attentesound = new Audio('sfx/attente.mp3');
+
+    attentesound.play();
+
+    $('#start').click(function () {
+      fetch('php/roomevent.php?room=<?php echo $_GET['room']; ?>&start=true', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+    })
+
+  <?php } ?>
 </script>
+<script src="js/base.js"></script>
 
 </html>

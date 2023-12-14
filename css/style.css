@@ -3,7 +3,7 @@
 /* @import url("timer.css"); */
 
 * {
-
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -15,22 +15,32 @@
     align-items: center;
     background: rgb(46, 119, 74);
     background: radial-gradient(circle, rgba(46, 119, 74, 1) 29%, rgba(59, 165, 100, 1) 57%, rgba(59, 165, 100, 1) 79%, rgba(34, 185, 167, 1) 100%);
-    overflow:hidden;
+    overflow: hidden;
     height: 100%;
-    font-family: 'Exo', sans-serif;
     font-weight: 700;
     font-size: 30px;
     text-transform: uppercase;
 }
 
 
-
+.zoomed-div {
+    width: 100%;
+    height: 50vh;
+    border: 1px solid black;
+    overflow: hidden; /* Empêche le contenu de déborder */
+    user-select: none; /* Empêche la sélection de texte sur mobile */
+    touch-action: none; /* Désactive les interactions tactiles par défaut */
+  >img{
+    width: 100%;
+    height: 100%;
+  }
+}
 
 
 
 /* mettre le h1 en title*/
 .indextitle {
-    font-size: 3rem;
+    font-size: 100%;
     text-align: center;
     margin: 0 auto;
     width: 60vw;
@@ -63,6 +73,9 @@
     border-radius: 35px;
 }
 
+input[type=texte] {
+    padding: 20px;
+}
 
 /* changer les inputs... */
 #form input,
@@ -111,6 +124,56 @@
     border: #000 1px solid;
 }
 
+#form .maps {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow-x: visible;
+}
+
+#form .maps button {
+    width: 30%;
+    background-color: #ccc;
+}
+
+#form .preview {
+    width: 60%;
+    height: 30vh;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#form .map {
+    width: 90%;
+}
+
+#form.content {
+    height: auto;
+    padding: 2vh 0;
+}
+#btnFullscreen{
+    position: fixed;
+    top: 2vh;
+    right: 2vw;
+    border: 1px solid #000;
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 0.5vh 1vw;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+    border: none;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    z-index: 999;
+
+}
 /* le btn admin en bas a droite */
 .adminbtn,
 .indexbtn {
@@ -127,10 +190,12 @@
     background-color: #fff;
     transition: background-color 0.3s ease;
     border-radius: 20px;
+    z-index: 999;
 }
 
 .adminbtn:hover,
-.indexbtn:hover {
+.indexbtn:hover,
+#btnFullscreen:hover {
     background-color: #000;
     color: #fff;
 }
@@ -236,6 +301,10 @@
     padding: 2vw 2vh;
     background-color: #eee;
     border: 1px solid #ccc;
+}
+
+.room:hover h1 {
+    text-decoration: underline;
 }
 
 .room:first-child {
@@ -393,6 +462,11 @@
     border-radius: 20px;
 }
 
+.scoreboard .startbtn.startbtnleft {
+    left: 2vw;
+    right: auto;
+}
+
 .scoreboard .startbtn:hover {
     background-color: #000;
     color: #fff;
@@ -402,6 +476,9 @@
     #form {
         width: 100%;
         border-radius: 0;
+        >input{
+            padding: 15px;
+        }
     }
 
     .adminpanel {
@@ -432,6 +509,42 @@
     .scoreboard .startbtn {
         position: relative;
 
+    }
+
+    .room {
+        grid-template-columns: 1fr;
+        gap: 2vh;
+        padding: 2vh 2vw;
+    }
+
+    .room h1 {
+        word-wrap: break-word;
+        overflow: hidden;
+    }
+
+    .game img {
+        /* rotate to pass to landscape mode */
+        transform: rotate(90deg);
+        width: 100vh;
+        height: 100vw;
+        object-fit: cover;
+    }
+
+    .game .action {
+        width: 100% !important;
+        height: 15vh;
+        bottom: 0 !important;
+    }
+
+    .game .action>* {
+        transform: rotate(90deg);
+    }
+
+    .game .action button {
+        width: 40% !important;
+        height: 100%;
+        padding: 0;
+        font-size: 1rem;
     }
 }
 
@@ -586,4 +699,74 @@
         border-radius: 50%;
     }
 
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    color: #333;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 1vh 0;
+}
+
+.game {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-color: #000;
+    color: #fff;
+    position: relative;
+}
+
+.game .action {
+    /* background-color: #fff; */
+    color: #000;
+    position: fixed;
+    bottom: 2vh;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2vw;
+    padding: 1vw 2vh;
+    width: 70%;
+    background-image: linear-gradient(to top, #000, transparent);
+}
+
+.game .action button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 2vh 2vw;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: #fff 1px solid;
+    border-radius: 30px;
+    width: 100%;
+}
+
+.game .action button:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.game .action .timer {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    padding: 1vh 2vw;
+    width: 70%;
+    text-align: center;
 }

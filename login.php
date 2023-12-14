@@ -1,4 +1,6 @@
 <?php
+
+ini_set('display_errors', 1);
 require_once "php/lib/Connexion.php";
 
 
@@ -6,7 +8,7 @@ if (isset($_POST['username'])) {
   $username = htmlspecialchars($_POST['username']);
 
 
-  $idRoom = 20;
+  $idRoom = 1;
 
   // Admin login ----------------
   if (isset($_POST['admin'])) {
@@ -37,40 +39,35 @@ if (isset($_POST['username'])) {
     // select pour vérifier une room disponible
     //$sql = "SELECT ID FROM room WHERE VALID = ? AND CREATED = ? ORDER BY CREATED ASC";
 
-    //$db = Connexion::login();
     //$resRoom = $db->prepare($sql);
     //$resRoom->execute(array(1, "2023-12-07"));
-
+    
     //$resuRoom = $resRoom->fetch(PDO::FETCH_ASSOC);
-
+    
     // si oui, on ajoute le joueur
     //if ($resRoom->rowCount() > 0) {
+    $db = Connexion::login();
+      
+    // select pour vérifier si le joueur existe
+    $sql = "SELECT * FROM player WHERE LIB = '?' AND IDROOM = ?";
+    $res = $db->prepare($sql);
+    $res->execute(array($username, $idRoom));
 
-      // select pour vérifier si le joueur existe
-      $sql = "SELECT * FROM player WHERE LIB = ? AND IDROOM = ?";
-      $res = $db->prepare($sql);
-      $res->execute(array($username, $idRoom));
+    // si le joueur existe
+    if ($res->rowCount() > 0) {
+      header("Location: index.php?error=wrong_login");
+    }
 
-      // si le joueur existe
-      if ($res->rowCount() > 0) {
-        header("Location: index.php?error=wrong_login");
-      }
+    // on l'ajoute
+    $sql = "INSERT INTO player (LIB, SCORE, IDROOM) VALUES (?, ?, ?)";
 
-      // on l'ajoute
-      $sql = "INSERT INTO player (LIB, SCORE, IDROOM) VALUES (?, ?, ?)";
+    $resInsert = $db->prepare($sql);
+    $resInsert->execute(array($username, 0, $idRoom));
 
-      $resInsert = $db->prepare($sql);
-      $resInsert->execute(array($username, 0, $idRoom));
-
-      // on le connecte avec les variables de session
-      session_start();
-      $_SESSION['player'] = $username;
-      $_SESSION['room'] = $idRoom;
-
-    //} else {
-      // si non, on le redirige vers la d'accueil
-    //  header("Location: index.php?error=no_room");
-    //}
+    // on le connecte avec les variables de session
+    session_start();
+    $_SESSION['player'] = $username;
+    $_SESSION['room'] = $idRoom;
 
     $db = Connexion::logout();
 
@@ -95,19 +92,19 @@ if (isset($_POST['username'])) {
 </head>
 
 <body class="index area-2">
-<ul class="circles">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
-    
+  <ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+
   <form action="login.php" method="post" id="form">
     <h1 class="indextitle">Administration</h1>
     <input type="text" name="username" placeholder="Username" required>
@@ -119,6 +116,13 @@ if (isset($_POST['username'])) {
 
   <div class="ending"></div>
   <a href="index.php" class="adminbtn">USER</a>
+
+
+  <footer>
+    <p>© 2023 - Ou Est Richardeau ?</p>
+    <h4 class="footer-title">Developed by Mathieu & Benjamin</h4>
+  </footer>
+  <script src="js/base.js"></script>
   <script src="js/anim.js"></script>
 </body>
 

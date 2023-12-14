@@ -4,7 +4,7 @@ require_once "../lib/Connexion.php";
 
 if (isset($_POST['LIB']) && isset($_POST['MAP'])) {
   $db = Connexion::login();
-  $sql = "INSERT INTO room (LIB, CREATED, VALID) VALUES ( '" . $_POST['LIB'] . "', '" . date("Y-m-d") . "', 0)";
+  $sql = "INSERT INTO room (LIB, CREATED, VALID, LAUNCH) VALUES ( '" . $_POST['LIB'] . "', '" . date("Y-m-d") . "', 0, 0)";
   $res = $db->prepare($sql);
   $res->execute();
 

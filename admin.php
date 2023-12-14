@@ -14,6 +14,14 @@ $res->execute();
 
 $rooms = $res->fetchAll(PDO::FETCH_ASSOC);
 
+foreach ($rooms as $key => $room) {
+  $sql = "SELECT COUNT(*) as NBMAP FROM jouer WHERE IDROOM = " . $room['ID']." AND IDMAP IS NOT NULL";
+  $res = $db->prepare($sql);
+  $res->execute();
+  $nbMap = $res->fetch(PDO::FETCH_ASSOC);
+  $rooms[$key]['MAP'] = $nbMap['NBMAP'] . " / " . $room['NBMAP']." maps";
+}
+
 $db = Connexion::logout();
 ?>
 
@@ -75,6 +83,7 @@ $db = Connexion::logout();
   <?php } ?>
 
 </body>
+<script src="js/base.js"></script>
 <script src="js/admin.js"></script>
 
 </html>

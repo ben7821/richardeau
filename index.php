@@ -17,21 +17,21 @@ require_once "constant.php";
 
 <body class="index area">
 
-    <ul class="circles">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
+  <ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
 
-            
-    <form action="login.php" method="post" id="form">
+
+  <form action="login.php" method="post" id="form">
     <a href="/" class="indextitle">Ou Est Richardeau ?</a>
     <?php
 
@@ -61,12 +61,18 @@ require_once "constant.php";
 
   <?php if (isset($_SESSION['admin'])) { ?>
     <a href="logout.php" class="adminbtn">LOGOUT</a>
-    <?php } else { ?>
-      <a href="login.php" class="adminbtn">ADMIN</a>
+  <?php } else { ?>
+    <a href="login.php" class="adminbtn">ADMIN</a>
   <?php } ?>
-
+  <button onclick="toggleFullscreen()" id="btnFullscreen">⇱/⇲</button>
+  
+  <footer>
+    <p>© 2023 - Ou Est Richardeau ?</p>
+    <h4 class="footer-title">Developed by Mathieu & Benjamin</h4>
+  </footer>
+  
   <div class="ending"></div>
-
+  <script src="js/base.js"></script>
   <script src="js/anim.js"></script>
 </body>
 
