@@ -67,7 +67,7 @@ const SFX = [
 ]
 
 function getRandomSFX() {
-    return SFX[Math.Floor(Math.Random * SFX.length)];
+    return SFX[Math.floor(Math.random() * SFX.length)];
 }
 
 let playersScore = {}

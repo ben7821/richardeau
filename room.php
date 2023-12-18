@@ -73,6 +73,8 @@ if (!isset($_SESSION['room']) && $_SESSION['room'] != $_GET['room']) {
         $(".scoreboard .scores").html("");
         for (var i = 0; i < player.length; i++) {
 
+          $('.scoreboard .scores').append(getPlayerBody(i, player[i].LIB, player[i].SCORE));
+
           // check if player score changed, if not, don't play sound
           if (playersScore[i] != undefined && playersScore[i].SCORE == player[i].SCORE) {
             continue;
@@ -81,7 +83,6 @@ if (!isset($_SESSION['room']) && $_SESSION['room'] != $_GET['room']) {
           const scoreSound = new Audio('sfx/' + getRandomSFX());
           scoreSound.play();
 
-          $('.scoreboard .scores').append(getPlayerBody(i, player[i].LIB, player[i].SCORE));
         }
 
         playersScore = player;
@@ -98,10 +99,6 @@ if (!isset($_SESSION['room']) && $_SESSION['room'] != $_GET['room']) {
   }
 
   <?php if (isset($_SESSION['admin'])) { ?>
-
-    const attentesound = new Audio('sfx/attente.mp3');
-
-    attentesound.play();
 
     $('#start').click(function () {
       fetch('php/roomevent.php?room=<?php echo $_GET['room']; ?>&start=true', {

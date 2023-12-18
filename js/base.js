@@ -33,3 +33,4 @@ function toggleFullscreen() {
       document.msExitFullscreen();
     }
   }
+

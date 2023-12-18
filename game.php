@@ -47,14 +47,15 @@ if (isset($_GET['room'])) {
   <title>Jeu</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 </head>
 
 <body>
   <input type="hidden" id="room" value="<?php echo $_GET['room']; ?>">
   <input type="hidden" id="player" value="<?php echo $_SESSION['player']; ?>">
   <div class="game">
-    <div class="zoomed-div" id="zoomTarget">
-      <img src="map/Map1.jpg" alt="" height="90%" id="imgmap">
+    <div class="game-container" id="zoom-container">
+      <img class ="zoom-image" src="" alt="" id="imgmap">
     </div>
     <div class="action">
       <button type="button" id="pass">Pass</button>
@@ -63,8 +64,9 @@ if (isset($_GET['room'])) {
       </div>
       <button type="button" id="next">Next</button>
     </div>
-  <button onclick="toggleFullscreen()" id="btnFullscreen">⇱/⇲</button>
+    <button onclick="toggleFullscreen()" id="btnFullscreen">⇱/⇲</button>
 </body>
+
 <script src="js/base.js"></script>
 <script src="js/game.js"></script>
 <script src="js/zoom.js"></script>

@@ -15,6 +15,16 @@ if (isset($_GET['action']) && !empty($_GET['action']) && isset($_GET['room'])) {
     $res->execute(array($room, $_POST['order']));
 
     $data = $res->fetchAll(PDO::FETCH_ASSOC);
+
+
+    $sql = "SELECT * FROM richardeau WHERE IDMAP = ?";
+    $res = $db->prepare($sql);
+    $res->execute(array($data[0]['IDMAP']));
+
+    $richardeau = $res->fetchAll(PDO::FETCH_ASSOC);
+
+    $data[0]['RICHARDEAU'] = count($richardeau) > 0 ? $richardeau[0] : array();
+
   } else if ($action == "updateplayerscore") {
 
     $sql = "UPDATE player SET SCORE = ? WHERE IDROOM = ? AND LIB = ?";
