@@ -27,9 +27,6 @@ if (isset($_GET['room'])) {
 
   }
 
-  // var_dump($player);
-  // var_dump($maps);
-
   $db = Connexion::logout();
 }
 // else {
@@ -64,7 +61,6 @@ if (isset($_GET['room'])) {
       </div>
       <button type="button" id="next">Next</button>
     </div>
-    <button onclick="toggleFullscreen()" id="btnFullscreen">⇱/⇲</button>
 </body>
 
 <script src="js/base.js"></script>

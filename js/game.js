@@ -26,14 +26,16 @@ $(document).ready(function () {
 $('#pass').click(function () {
   clearInterval(timeInterval);
   getMap();
-  // if mapTime = au max, donner MAXPOINT
-  // sinon calc sur le temps qu'il a mis pour trouver
   UpdatePlayerScore(0);
 });
 
 $('#next').click(function () {
   clearInterval(timeInterval);
   getMap();
+  if (mapTime <= 0) {
+    UpdatePlayerScore(0);
+    return;
+  } 
   let score = MAXPOINT - Math.floor(mapTime / 60);
   UpdatePlayerScore(score);
 });
@@ -58,10 +60,12 @@ function getMap() {
         document.querySelector('#guess').remove();
       }
 
-      // si le tableau RICHARDEAU[0] est vide on fait pas NewGuess
-      if (Object.keys(map.data[0].RICHARDEAU).length > 0) {
-        NewGuess(map.data[0].RICHARDEAU);
-      }
+      setTimeout(function () {
+        // si le tableau RICHARDEAU[0] est vide on fait pas NewGuess
+        if (Object.keys(map.data[0].RICHARDEAU).length > 0) {
+          NewGuess(map.data[0].RICHARDEAU);
+        }
+      }, 100);
 
       $('#next').prop('disabled', true);
       $('#next').css({ backgroundColor: '#ff000055' });
@@ -118,8 +122,8 @@ function NewGuess(data) {
 
   let size = data.TAILLE.split(',').map(x => parseInt(x));
 
-  img.width = size[0];
-  img.height = size[1];
+  img.width = size[0] / 100 * imgmapx;
+  img.height = size[1] / 100 * imgmapy;
 
   let pos = data.POSITION.split(',').map(x => parseInt(x));
   const offset = $('#imgmap').offset();
@@ -128,7 +132,9 @@ function NewGuess(data) {
     position: 'absolute',
     top: offset.top + pos[0] / 100 * imgmapx,
     left: offset.left + pos[1] / 100 * imgmapy,
-    zIndex: 1000
+    zIndex: 1000,
+    background: 'yellow',
+    filter: 'invert(100%)'
   });
 
   $(img).data('xpos', pos[0]);

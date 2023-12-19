@@ -760,3 +760,14 @@ footer {
     width: 70%;
     text-align: center;
 }
+
+.index2{
+    display: flex;
+
+}
+.endgame{
+display: flex;
+flex-direction: column;
+
+
+}

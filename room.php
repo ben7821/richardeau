@@ -75,7 +75,7 @@ if (!isset($_SESSION['room']) && $_SESSION['room'] != $_GET['room']) {
 
           $('.scoreboard .scores').append(getPlayerBody(i, player[i].LIB, player[i].SCORE));
 
-          // check if player score changed, if not, don't play sound
+          
           if (playersScore[i] != undefined && playersScore[i].SCORE == player[i].SCORE) {
             continue;
           }

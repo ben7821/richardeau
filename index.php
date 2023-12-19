@@ -12,6 +12,8 @@ require_once "constant.php";
   <link rel="stylesheet" href="css/style.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="manifest" href="manifest.json" />
+  <script>navigator.serviceWorker.register("service-worker.js")</script> 
   <title>Ou Est Richardeau ?</title>
 </head>
 
@@ -64,7 +66,6 @@ require_once "constant.php";
   <?php } else { ?>
     <a href="login.php" class="adminbtn">ADMIN</a>
   <?php } ?>
-  <button onclick="toggleFullscreen()" id="btnFullscreen">⇱/⇲</button>
   
   <footer>
     <p>© 2023 - Ou Est Richardeau ?</p>

@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "net.poupli.ou_est_richardeau.twa",
+        "sha256_cert_fingerprints": ["0B:1B:FD:CE:6D:3F:9E:27:44:10:EE:63:EB:48:35:89:AF:E1:96:2E:0F:7E:2D:C2:73:96:AD:A6:D0:46:2F:3F"]
+      }
+    }]
