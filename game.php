@@ -4,8 +4,8 @@ require_once "php/lib/Connexion.php";
 
 
 session_start();
-//if (isset($_GET['room']) && $_GET['room'] == $_SESSION['room']) {
-if (isset($_GET['room'])) {
+if (isset($_GET['room']) && $_GET['room'] == $_SESSION['room']) {
+// if (isset($_GET['room'])) {
   $sql = "SELECT * FROM jouer INNER JOIN map ON jouer.IDMAP = map.ID WHERE IDROOM = ? AND ORDRE = ?";
   $db = Connexion::login();
   $res = $db->prepare($sql);
@@ -30,7 +30,7 @@ if (isset($_GET['room'])) {
   $db = Connexion::logout();
 }
 else {
-//   header("Location: index.php");
+  header("Location: index.php");
 }
 ?>
 
@@ -68,6 +68,7 @@ else {
 </body>
 
 <script src="js/anim.js"></script>
+<script src="js/room.js"></script>
 <script src="js/base.js"></script>
 <script src="js/game.js"></script>
 <!-- <script src="js/zoom.js"></script> -->

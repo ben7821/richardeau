@@ -3,8 +3,8 @@
 require_once "php/lib/Connexion.php";
 
 session_start();
-// if (isset($_GET['room']) && $_GET['room'] == $_SESSION['room']) {
-if (isset($_GET['room'])) {
+if (isset($_GET['room']) && $_GET['room'] == $_SESSION['room']) {
+// if (isset($_GET['room'])) {
   // end game
 
   $sql = "SELECT * FROM player WHERE IDROOM = ? ORDER BY SCORE DESC";
@@ -18,7 +18,7 @@ if (isset($_GET['room'])) {
   $db = Connexion::logout();
 
 } else {
-  //header("Location: index.php");
+  header("Location: index.php");
 }
 ?>
 

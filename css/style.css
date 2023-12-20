@@ -238,6 +238,11 @@ input[type=texte] {
     animation-fill-mode: forwards;
 }
 
+.ending-animate-reverse {
+    animation: fadeout 1s ease-out;
+    animation-fill-mode: forwards;
+}
+
 .ending-force {
     display: block;
     opacity: 1;
@@ -254,6 +259,33 @@ input[type=texte] {
     }
 }
 
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    } 
+
+    to {
+        opacity: 0;
+    }
+}
+
+.ending {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .ending-animate {
+    opacity: 1;
+  }
+
+  .ending-animate-reverse {
+    opacity: 0;
+  }
+
+  .ending-force {
+    opacity: 1 !important;
+  }
+  
 /* alternative au #form */
 .adminpanel {
     width: 100vw;

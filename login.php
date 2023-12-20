@@ -35,17 +35,6 @@ if (isset($_POST['username'])) {
 
     // Player login ----------------
   } else {
-
-    // select pour vérifier une room disponible
-    //$sql = "SELECT ID FROM room WHERE VALID = ? AND CREATED = ? ORDER BY CREATED ASC";
-
-    //$resRoom = $db->prepare($sql);
-    //$resRoom->execute(array(1, "2023-12-07"));
-    
-    //$resuRoom = $resRoom->fetch(PDO::FETCH_ASSOC);
-    
-    // si oui, on ajoute le joueur
-    //if ($resRoom->rowCount() > 0) {
     $db = Connexion::login();
       
     // select pour vérifier si le joueur existe

@@ -19,19 +19,23 @@ const timer = $('#timer');
 $(document).ready(function () {
   clearInterval(timeInterval);
   getMap();
-  // $('.ending').removeClass('ending-force'); 
-  UpdatePlayerScore(0);
+  
+  setTimeout(function () {
+  $('.ending').removeClass('ending-force');
+  }, 1000);
 });
 
 
 $('#pass').click(function () {
   clearInterval(timeInterval);
+  // FadeIn();
   getMap();
   UpdatePlayerScore(0);
 });
 
 $('#next').click(function () {
   clearInterval(timeInterval);
+  //  FadeIn();
   getMap();
   if (mapTime <= 0) {
     UpdatePlayerScore(0);
@@ -62,7 +66,6 @@ function getMap() {
       }
 
       setTimeout(function () {
-        // si le tableau RICHARDEAU[0] est vide on fait pas NewGuess
         if (Object.keys(map.data[0].RICHARDEAU).length > 0) {
           NewGuess(map.data[0].RICHARDEAU);
         }
@@ -72,8 +75,8 @@ function getMap() {
       $('#next').css({ backgroundColor: '#ff000055' });
 
       
-      // mapTime = map.data[0].TIMER;
-      mapTime = 20;
+      mapTime = map.data[0].TIMER;
+
       updateTimer();
       
       timeInterval = setInterval(function () {
@@ -91,9 +94,9 @@ function getMap() {
     }
   });
   
-  setTimeout(function () {
-    FadeOut();
-  }, 500);
+  // setTimeout(function () {
+  //   FadeOut();
+  // }, 500);
 }
 
 
@@ -136,13 +139,14 @@ function NewGuess(data) {
   const offset = $('#imgmap').offset();
 
   img.dataset.pos = pos.join(',');
+  img.dataset.size = size.join(',');
 
   $(img).css({
     position: 'absolute',
     top: offset.top + pos[0] / 100 * imgmapx,
     left: offset.left + pos[1] / 100 * imgmapy,
     zIndex: 99,
-    filter: 'opacity(0.5)'
+    filter: 'opacity(0.4)'
   });
 
   $(img).data('xpos', pos[0]);
@@ -152,9 +156,15 @@ function NewGuess(data) {
   document.body.appendChild(img);
 
   $(img).click(function (e) {
-    $(this).remove();
+    $(this).css({
+      filter: 'opacity(1)',
+      backgroundColor: 'rgba(255, 255, 255, 0.7)'
+    });
     $('#next').prop('disabled', false);
     $('#next').css({ backgroundColor: '#00ff0055' });
+
+    const audio = new Audio('sfx/' + getRandomSFX());
+    audio.play();
   })
 }
 
@@ -167,9 +177,6 @@ function onOrientationChange(event) {
   }
 }
 
-// window.addEventListener('load', onOrientationChange);
-// window.addEventListener('orientationchange', onOrientationChange);
-
 $(window).resize(function () {
   const imgmapx = $('#imgmap').width();
   const imgmapy = $('#imgmap').height();
@@ -180,18 +187,28 @@ $(window).resize(function () {
     let pos = img.dataset.pos.split(',').map(x => parseInt(x));
     const offset = $('#imgmap').offset();
 
+    let size = img.dataset.size.split(',').map(x => parseInt(x));
+
     // Adjust the position here based on your requirements
     $(img).css({
       top: offset.top + $(img).data('xpos') / 100 * imgmapx,
       left: offset.left + $(img).data('ypos') / 100 * imgmapy,
+      width: size[0] / 100 * imgmapx,
+      height: size[1] / 100 * imgmapy
     });
   }
 });
 
-function FadeIn() {
-  $('.ending').addClass('.ending-animate');
-}
+// function FadeIn() {
+//   $('.ending').addClass('ending-animate');
+//   setTimeout(function () {
+//     $('.ending').removeClass('ending-animate-reverse');
+//   }, 1000);
+// }
 
-function FadeOut() {
-  $('.ending').removeClass('.ending-animate');
-}
+// function FadeOut() {
+//   $('.ending').addClass('ending-animate-reverse');
+//   setTimeout(function () {
+//     $('.ending').removeClass('ending-animate');
+//   }, 1000);
+// }

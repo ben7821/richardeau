@@ -27,7 +27,7 @@ function getPlayerBody(pos, name, score) {
         <h3 class="player_name">${name}</h3>
     </div>`;
 }
-
+ 
 const SFX = [
     'among-us-role-reveal-sound.mp3',
     'bad-to-the-bone-meme.mp3',

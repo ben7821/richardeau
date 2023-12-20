@@ -27,7 +27,7 @@ if (isset($_GET['action']) && !empty($_GET['action']) && isset($_GET['room'])) {
 
   } else if ($action == "updateplayerscore") {
 
-    $sql = "UPDATE player SET SCORE = ? WHERE IDROOM = ? AND LIB = ?";
+    $sql = "UPDATE player SET SCORE = SCORE + ? WHERE IDROOM = ? AND LIB = ?";
 
     $db = Connexion::login();
     $res = $db->prepare($sql);
