@@ -16,3 +16,7 @@ function animateEnding() {
   }, 2000);
 }
 
+function animateFadeOut() {
+  ending.classList.add("ending-fadeout");
+}
+

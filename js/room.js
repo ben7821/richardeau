@@ -18,7 +18,7 @@ function getPlayerBody(pos, name, score) {
             break;
         default:
             pos = "p1";
-            break;
+            break; 
     }
 
     return `

@@ -1,9 +1,9 @@
 @import url("var.css");
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
 /* @import url("timer.css"); */
-
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Poppins:wght@100;300&display=swap');
 * {
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -21,26 +21,33 @@
     font-size: 30px;
     text-transform: uppercase;
 }
+
 body {
     overflow: hidden;
-}
-
-.game-container {
     display: flex;
     justify-content: center;
-    width: 100vw;
+    align-items: center;
     height: 100vh;
-    overflow: hidden;
-    position: relative;
 }
 
 .zoom-image {
-    background-color: #333;
-    border: solid white 10px;
-    padding: 5%;
-    height: auto;
-    transition: transform 0.3s ease-in-out;
-}
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .game-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  #viewport {
+    position: absolute;
+    border: 2px solid #fff;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
 
 
 /* mettre le h1 en title*/
@@ -162,7 +169,8 @@ input[type=texte] {
     height: auto;
     padding: 2vh 0;
 }
-#btnFullscreen{
+
+#btnFullscreen {
     position: fixed;
     top: 2vh;
     right: 2vw;
@@ -179,6 +187,7 @@ input[type=texte] {
     z-index: 999;
 
 }
+
 /* le btn admin en bas a droite */
 .adminbtn,
 .indexbtn {
@@ -229,11 +238,16 @@ input[type=texte] {
     animation-fill-mode: forwards;
 }
 
+.ending-force {
+    display: block;
+    opacity: 1;
+}
+
 /* l'animation de fade in */
 @keyframes fadein {
     from {
         opacity: 0;
-    }
+    } 
 
     to {
         opacity: 1;
@@ -476,16 +490,16 @@ input[type=texte] {
     background-color: #000;
     color: #fff;
 }
-@media screen {
-    
-}
+
+@media screen {}
 
 
 @media screen and (max-width: 768px) {
     #form {
         width: 100%;
         border-radius: 0;
-        >input{
+
+        >input {
             padding: 15px;
         }
     }
@@ -535,6 +549,18 @@ input[type=texte] {
         /* rotate to pass to landscape mode */
         height: 100vw;
         width: 100vh;
+    }
+
+    .endgame a {
+        display: none;
+    }
+
+    .endgame {
+        line-height: 1;
+    }
+
+    .endgame h1 img {
+        width: 100%;
     }
 
 }
@@ -761,13 +787,106 @@ footer {
     text-align: center;
 }
 
-.index2{
+.index2 {
     display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-content: center;
+    background-color: #8832d8;
 
 }
-.endgame{
-display: flex;
-flex-direction: column;
 
+.endgame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.endgame h1 {
+    font-size: 3rem;
+    text-align: center;
+    color: #fff;
+    font-family: freeware, Non-Commercial;
+    margin: 4vh 0;
+}
+
+.endgame h2 {
+    font-size: 2rem;
+    text-align: center;
+    color: #fff;
+    margin: 4vh 0;
+}
+
+.endgame h2 span {
+    color: gold;
+    font-weight: 100;
+}
+
+.endgame a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.5rem;
+    border: 1px solid #fff;
+    padding: 1vh 2vw;
+    border-radius: 30px;
+    position: absolute;
+    bottom: 7%;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  
+@media (orientation: landscape) {
+    .game #imgmap {
+        height: 100vh;
+    }
+    .game-container{
+        display: flex;
+        justify-content: center;
+    }
+    .game .action {
+        position: absolute;
+        display: flex;
+        width: 15%;
+        flex-direction: column;
+        right: 20px;
+        transform: translate(210%, 0);
+        align-items: normal;
+    }
+
+    .endgame h1 img {
+        width: 50%;
+    }
+
+    .endgame a{
+        display: none;
+    }
+}
+
+@media (orientation: portrait) {
+
+    .game .action {
+        bottom: 2vh;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 70%;
+    }
+
+    .game .action button {
+        width: 100%;
+    }
+
+    .game .action .timer {
+        width: 100%;
+    }
+
+    .game #imgmap {
+        width: 100%;
+    }
 }

@@ -29,9 +29,9 @@ if (isset($_GET['room'])) {
 
   $db = Connexion::logout();
 }
-// else {
+else {
 //   header("Location: index.php");
-// }
+}
 ?>
 
 
@@ -50,10 +50,12 @@ if (isset($_GET['room'])) {
 <body>
   <input type="hidden" id="room" value="<?php echo $_GET['room']; ?>">
   <input type="hidden" id="player" value="<?php echo $_SESSION['player']; ?>">
+  
   <div class="game">
     <div class="game-container" id="zoom-container">
       <img class ="zoom-image" src="" alt="" id="imgmap">
     </div>
+
     <div class="action">
       <button type="button" id="pass">Pass</button>
       <div class="timer">
@@ -61,10 +63,13 @@ if (isset($_GET['room'])) {
       </div>
       <button type="button" id="next">Next</button>
     </div>
+
+    <div class="ending ending-force"></div>
 </body>
 
+<script src="js/anim.js"></script>
 <script src="js/base.js"></script>
 <script src="js/game.js"></script>
-<script src="js/zoom.js"></script>
+<!-- <script src="js/zoom.js"></script> -->
 
 </html>

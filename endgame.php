@@ -3,7 +3,8 @@
 require_once "php/lib/Connexion.php";
 
 session_start();
-if (isset($_GET['room']) && $_GET['room'] == $_SESSION['room']) {
+// if (isset($_GET['room']) && $_GET['room'] == $_SESSION['room']) {
+if (isset($_GET['room'])) {
   // end game
 
   $sql = "SELECT * FROM player WHERE IDROOM = ? ORDER BY SCORE DESC";
@@ -33,15 +34,21 @@ if (isset($_GET['room']) && $_GET['room'] == $_SESSION['room']) {
   <title>Fin du jeu</title>
 </head>
 
-<body class="index2">
+<body class="roomloader">
   <div class="endgame">
-    <h1>Fin du jeu</h1>
-    <h2>Le gagnant est
-      <?php echo $winner['LIB']; ?> <br> avec
-      <?php echo $winner['SCORE']; ?> points
+    <h1><img src="https://see.fontimg.com/api/renderfont4/owdrz/eyJyIjoiZnMiLCJoIjo2NSwidyI6MTAwMCwiZnMiOjY1LCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/RklOIERVIEpFVQ/king-gaming-free-trial.png" alt="Gaming fonts" style="filter: invert(100%);"></h1>
+    <h2>
+      Le gagnant est 
+      <br>
+      <span ><?php echo strtoupper($winner['LIB']); ?> </span>
+      <br>
+      avec 
+      <br>
+      <span ><?php echo $winner['SCORE']; ?>  </span>
+      <br>
+      points
     </h2>
     <h4 class="thanks">Merci d'avoir joué !</h4>
-    <a href="index.php">Retour à l'accueil</a>
   </div>
 </body>
 

@@ -105,7 +105,7 @@ if (!isset($_SESSION['room']) && $_SESSION['room'] != $_GET['room']) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-        }
+        } 
       });
     })
 

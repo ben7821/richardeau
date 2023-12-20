@@ -19,6 +19,7 @@ const timer = $('#timer');
 $(document).ready(function () {
   clearInterval(timeInterval);
   getMap();
+  // $('.ending').removeClass('ending-force'); 
   UpdatePlayerScore(0);
 });
 
@@ -70,25 +71,31 @@ function getMap() {
       $('#next').prop('disabled', true);
       $('#next').css({ backgroundColor: '#ff000055' });
 
+      
       // mapTime = map.data[0].TIMER;
       mapTime = 20;
       updateTimer();
-
+      
       timeInterval = setInterval(function () {
         if (mapTime > 0) {
           mapTime--;
-
+          
           updateTimer();
         }
       }, 1000);
-
+      
       ordre++;
     },
     error: function (error) {
       console.log(error);
     }
   });
+  
+  setTimeout(function () {
+    FadeOut();
+  }, 500);
 }
+
 
 function UpdatePlayerScore(score) {
   $.ajax({
@@ -128,13 +135,14 @@ function NewGuess(data) {
   let pos = data.POSITION.split(',').map(x => parseInt(x));
   const offset = $('#imgmap').offset();
 
+  img.dataset.pos = pos.join(',');
+
   $(img).css({
     position: 'absolute',
     top: offset.top + pos[0] / 100 * imgmapx,
     left: offset.left + pos[1] / 100 * imgmapy,
-    zIndex: 1000,
-    background: 'yellow',
-    filter: 'invert(100%)'
+    zIndex: 99,
+    filter: 'opacity(0.5)'
   });
 
   $(img).data('xpos', pos[0]);
@@ -150,6 +158,18 @@ function NewGuess(data) {
   })
 }
 
+
+function onOrientationChange(event) {
+  if (window.innerHeight > window.innerWidth) {
+    $('#imgmap').css({ width: '100%', height: 'auto' });
+  } else {
+    $('#imgmap').css({ width: 'auto', height: '100%' });
+  }
+}
+
+// window.addEventListener('load', onOrientationChange);
+// window.addEventListener('orientationchange', onOrientationChange);
+
 $(window).resize(function () {
   const imgmapx = $('#imgmap').width();
   const imgmapy = $('#imgmap').height();
@@ -157,7 +177,7 @@ $(window).resize(function () {
   const img = document.querySelector('#guess');
 
   if (img) {
-    let pos = img.src.split('/').pop().split('.')[0].split('_').slice(1).map(x => parseInt(x));
+    let pos = img.dataset.pos.split(',').map(x => parseInt(x));
     const offset = $('#imgmap').offset();
 
     // Adjust the position here based on your requirements
@@ -167,3 +187,11 @@ $(window).resize(function () {
     });
   }
 });
+
+function FadeIn() {
+  $('.ending').addClass('.ending-animate');
+}
+
+function FadeOut() {
+  $('.ending').removeClass('.ending-animate');
+}
